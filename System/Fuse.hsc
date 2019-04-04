@@ -1022,7 +1022,7 @@ foreign import ccall safe "fuse.h fuse_opt_free_args"
 foreign import ccall interruptible "fuse.h fuse_loop_mt"
     fuse_loop_mt :: Ptr CStructFuse -> IO Int
 
-foreign import ccall safe "fuse.h fuse_loop"
+foreign import ccall interruptible "fuse.h fuse_loop"
     fuse_loop :: Ptr CStructFuse -> IO Int
 
 data CFuseContext
