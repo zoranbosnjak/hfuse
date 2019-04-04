@@ -23,6 +23,7 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE Rank2Types #-}
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE InterruptibleFFI #-}
 module System.Fuse
     ( -- * Using FUSE
 
@@ -1018,7 +1019,7 @@ foreign import ccall safe "fuse.h fuse_destroy"
 foreign import ccall safe "fuse.h fuse_opt_free_args"
     fuse_opt_free_args :: Ptr CFuseArgs -> IO ()
 
-foreign import ccall safe "fuse.h fuse_loop_mt"
+foreign import ccall interruptible "fuse.h fuse_loop_mt"
     fuse_loop_mt :: Ptr CStructFuse -> IO Int
 
 foreign import ccall safe "fuse.h fuse_loop"
