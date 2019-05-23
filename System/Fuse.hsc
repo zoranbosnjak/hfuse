@@ -55,10 +55,8 @@ module System.Fuse
     , unionFileModes -- :: FileMode
     ) where
 
-import Prelude hiding ( Read )
-
 import Control.Concurrent (forkIO, threadDelay)
-import Control.Monad
+import Control.Monad (when)
 import Control.Exception as E (Exception, handle, finally, SomeException, bracket_, bracket)
 import Data.Maybe
 import qualified Data.ByteString.Char8    as B
@@ -68,6 +66,7 @@ import Foreign
 import Foreign.C
 import Foreign.C.Error
 import Foreign.Marshal
+import Foreign.Marshal.Alloc.Compat 
 import System.Environment ( getProgName, getArgs )
 import System.IO ( hPutStrLn, stderr, withFile, stdin, stdout, IOMode(..) )
 import System.Posix.Types
@@ -83,6 +82,8 @@ import System.IO.Error (catchIOError,ioeGetErrorString)
 #else
 import System.IO.Error (catch,ioeGetErrorString)
 #endif
+import Prelude ()
+import Prelude.Compat
 
 -- TODO: FileMode -> Permissions
 -- TODO: Arguments !
