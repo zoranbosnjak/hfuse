@@ -787,9 +787,7 @@ daemon f = forkProcess d >> exitImmediately ExitSuccess >> error "This is unreac
 withSignalHandlers :: IO () -> IO a -> IO a
 withSignalHandlers exitHandler = bracket_ setHandlers resetHandlers
     where   setHandlers = do
-                let sigHandler = Signals.CatchInfoOnce $ \si -> do
-                        exitHandler
-                        Signals.raiseSignal $ Signals.siginfoSignal si
+                let sigHandler = Signals.Catch exitHandler
                 Signals.installHandler Signals.keyboardSignal sigHandler Nothing
                 Signals.installHandler Signals.lostConnection sigHandler Nothing
                 Signals.installHandler Signals.softwareTermination sigHandler Nothing
